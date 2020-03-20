@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="cn.ybzy.hibernatedemo2.model">
+    <class name="Teacher" table="t_teachers">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="tname" type="java.lang.String">
+            <column name="t_name" />
+        </property>
+        <set name="courses" table="t_teacher_course" inverse="true">
+            <key>
+                <column name="teacher_id" />
+            </key>
+            <many-to-many class="Course" column="course_id"></many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
