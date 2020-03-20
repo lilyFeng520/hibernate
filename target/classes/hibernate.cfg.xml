@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <!-- 连接数据库的基本信息 -->
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate5?characterEncoding=UTF-8</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password">admin</property>
+  <!-- Hibernate里的一些配置：数据库使用方言，开发过程中要在控制台上显示sql 这表示使用MYSQL方言 ，加上5表示 让Hibernate支持高版本数据库的自动生成表，
+		否则mysql5以上的版本会报xxx not exist! -->
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+  <!-- 这表示在控制台显示执行的sql语句 -->
+  <property name="hibernate.show_sql">true</property>
+  <!-- 这是Hibernate事务管理方式，即每个线程一个事务 -->
+  <property name="current_session_context_class">thread</property>
+  <!-- 这表示控制台显示的sql，要格式化显示 -->
+  <property name="hibernate.format_sql">true</property>
+  <!-- 这表示会自动更新数据库的表结构，有这句话，其实是不需要创建表的，因为Hibernate会自动去创建表结构 -->
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <!-- 配置使用c3p0数据库连接池 -->
+  <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+  <!-- 当连接池里的连接耗尽的时候，Hibernate应该向数据库一次性申请连接的个数 -->
+  <property name="hibernate.c3p0.acquire_increment">20</property>
+  <!--表示连接池检查线程多长时间检查一次连接池里的所有连接是不是已经超时了，
+		连接池本身是不会把超时的连接移除出来连接池的，
+		移除的话要通过专门做这个事情的线程来实现，
+		这个线程是通过比较连接的最后使用时间和当前系统时间之间的差值和超时的时间值来判断是不是该把这个连接干掉  -->
+  <property name="hibernate.c3p0.idle_test_period">2000</property>
+  <!-- 指定连接池里最大连接数 -->
+  <property name="hibernate.c3p0.max_size">20</property>
+  <!-- 指定连接池里最大缓存多少个statment对象 -->
+  <property name="hibernate.c3p0.max_statements">10</property>
+  <!-- 指定连接池里最小连接数 -->
+  <property name="hibernate.c3p0.min_size">5</property>
+  <!-- 指定连接池里连接的超时时长 ,单位是秒钟-->
+  <property name="hibernate.c3p0.timeout">2000</property>
+  <property name="hibernate.jdbc.batch_size">30</property>
+  <property name="hibernate.jdbc.fetch_size">100</property>
+  <!-- ORM映射关系 -->
+  <mapping resource="cn/ybzy/hibernatedemo2/model/Course.hbm.xml"/>
+  <mapping resource="cn/ybzy/hibernatedemo2/model/Teacher.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>
